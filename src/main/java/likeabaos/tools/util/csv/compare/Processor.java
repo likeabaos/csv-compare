@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,7 +62,7 @@ public class Processor {
 	    Map<String, List<String>> leftData = Helper.loadCsvFile(left, allColumns);
 	    Map<String, List<String>> rightData = Helper.loadCsvFile(right, allColumns);
 	    List<String> keys = compare(keyColumns, leftData, rightData);
-	    List<String> dataColumns = getDataColumns(leftData.keySet(), keys);
+	    List<String> dataColumns = Helper.getDataColumns(leftData.keySet(), keys);
 
 	    // clear out some raw data so we don't keep too much data in memory.
 	    // we should already have all the data needed for output by now.
@@ -126,15 +125,6 @@ public class Processor {
 
 	LOG.info("Comparison Completed");
 	return keyColNames;
-    }
-
-    List<String> getDataColumns(Collection<String> allColumns, Collection<String> keyColumns) {
-	List<String> dataColumns = new ArrayList<String>();
-	for (String col : allColumns) {
-	    if (!keyColumns.contains(col))
-		dataColumns.add(col);
-	}
-	return dataColumns;
     }
 
     void outputResults(List<String> dataColumns, List<String> keyColumns, File output)

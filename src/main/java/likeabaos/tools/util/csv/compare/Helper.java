@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,6 +94,15 @@ public class Helper {
 	    dataByKeys.put(key, data);
 	} while (++count < max);
 	return dataByKeys;
+    }
+
+    public static List<String> getDataColumns(Collection<String> allColumns, Collection<String> keyColumns) {
+	List<String> dataColumns = new ArrayList<String>();
+	for (String col : allColumns) {
+	    if (!keyColumns.contains(col))
+		dataColumns.add(col);
+	}
+	return dataColumns;
     }
 
     public static void createSheet(Workbook workbook, List<String> keyColumns, List<String> dataColumns,

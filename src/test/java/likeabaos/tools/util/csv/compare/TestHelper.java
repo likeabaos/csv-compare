@@ -1,12 +1,14 @@
 package likeabaos.tools.util.csv.compare;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +22,37 @@ public class TestHelper {
 	Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2019-05-12 13:50:59");
 	String value = Helper.formatTimestampPrintable(date.getTime());
 	assertEquals("2019-05-12_13-50-59-000", value);
+    }
+
+    @Test
+    public void testGetCSV() {
+	List<String> result = Helper.getCSV("");
+	assertNotNull(result);
+	assertEquals(0, result.size());
+
+	result = Helper.getCSV("*");
+	assertNotNull(result);
+	assertEquals(0, result.size());
+
+	result = Helper.getCSV(" one, two   ,   three,four,five");
+	assertNotNull(result);
+	assertEquals(5, result.size());
+	assertEquals("[one, two, three, four, five]", result.toString());
+    }
+
+    @Test
+    public void testGetDataColumns() {
+	List<String> all = new ArrayList<>();
+	List<String> keys = new ArrayList<>();
+	List<String> data = new ArrayList<>();
+	for (int i = 1; i <= 10; i++) {
+	    all.add("col_" + i);
+	    if (i > 2 && i <= 5)
+		keys.add("col_" + i);
+	    else
+		data.add("col_" + i);
+	}
+	assertEquals(data, Helper.getDataColumns(all, keys));
     }
 
     @Test
