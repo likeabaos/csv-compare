@@ -34,8 +34,8 @@ public class TestProcessor {
 	proc.compare("Book Name", leftData, rightData);
 	assertEquals("{2=([How to program C++, , Cpp Guy, 2/1/1990, 56.75],[2, C++ Guy, 2/1/1990, 56.75])}",
 		proc.getDiff().toString());
-	assertEquals("{5=[Awesome Math, 5, Math Teacher, 1/1/2009, 20]}", proc.getLeft().toString());
-	assertEquals("{}", proc.getRight().toString());
+	assertEquals("{5=[Awesome Math, 5, Math Teacher, 1/1/2009, 20]}", proc.getRight().toString());
+	assertEquals("{5=[Best Dishes, 6, A Chief, 1/1/1999, 7.99]}", proc.getLeft().toString());
     }
 
 }

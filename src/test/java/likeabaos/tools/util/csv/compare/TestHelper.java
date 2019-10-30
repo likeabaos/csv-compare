@@ -43,10 +43,10 @@ public class TestHelper {
 	assertEquals("[ID, Book Name, Author, Release Date, Cost]", data.keySet().toString());
 
 	for (List<String> column : data.values()) {
-	    assertEquals(4, column.size());
+	    assertEquals(5, column.size());
 	}
 	// null cell should result having the same row count
-	assertEquals("[1, , 3, 4]", data.get("ID").toString());
+	assertEquals("[1, , 3, 4, 6]", data.get("ID").toString());
     }
 
     @Test
@@ -59,10 +59,10 @@ public class TestHelper {
 	assertEquals("[ID, Book Name]", data.keySet().toString());
 
 	for (List<String> column : data.values()) {
-	    assertEquals(4, column.size());
+	    assertEquals(5, column.size());
 	}
 	// null cell should result having the same row count
-	assertEquals("[1, , 3, 4]", data.get("ID").toString());
+	assertEquals("[1, , 3, 4, 6]", data.get("ID").toString());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -79,10 +79,11 @@ public class TestHelper {
 	Map<String, List<String>> data = Helper.loadCsvFile(file, columns);
 	List<String> keys = Helper.getCSV("ID, Book Name");
 	Map<List<String>, List<String>> byKeys = Helper.getDataByKeys(keys, data);
-	assertEquals("[[1, How to program Java], [, How to program C++], [3, Programming Tips], [4, My Back Yard]]",
+	assertEquals(
+		"[[1, How to program Java], [, How to program C++], [3, Programming Tips], [4, My Back Yard], [6, Best Dishes]]",
 		byKeys.keySet().toString());
 	assertEquals(
-		"[[Java Guy, 1/1/2011, 25.99], [Cpp Guy, 2/1/1990, 56.75], [A Coder, 3/12/2012, 25.99], [Random Person, 9/9/2019, 5]]",
+		"[[Java Guy, 1/1/2011, 25.99], [Cpp Guy, 2/1/1990, 56.75], [A Coder, 3/12/2012, 25.99], [Random Person, 9/9/2019, 5], [A Chief, 1/1/1999, 7.99]]",
 		byKeys.values().toString());
     }
 }
